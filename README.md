@@ -17,11 +17,11 @@ RandomForestを使用する分類モデル構築
 - handsign_detaset  
 手の形状を表す真偽値＋各指の角度情報など数値情報を含めたデータセット  
 
+## Reference  
+- [Mediapipe](https://github.com/google/Mediapipe)  
+
 ## Author 
 Redgum  
 
-# Reference  
-- [Mediapipe](https://github.com/google/Mediapipe)  
-
-# License  
+## License  
 Hand gesture recognition using Mediapipe is under [Apache v2 license](LICENSE).
