@@ -24,4 +24,4 @@ RandomForestを使用する分類モデル構築
 Redgum  
 
 ## License  
-Hand gesture recognition using Mediapipe is under [Apache v2 license](LICENSE).
+Fingerspelling Classification is under [Apache v2 license](LICENSE).
