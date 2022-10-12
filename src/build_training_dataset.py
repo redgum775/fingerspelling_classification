@@ -7,7 +7,11 @@ import pandas as pd
 from utils import hand_utils
 from utils import drawing_utils
 
+<<<<<<< HEAD
 IS_ALL_UPDATE = True
+=======
+IS_ALL_DATA = True
+>>>>>>> 14718d79aa28276c534123b3b16ab3ce3bc3368c
 
 def main():
   df = pd.read_csv('./datasets/end-to-end/data_list.csv')
@@ -17,7 +21,11 @@ def main():
 
   for index, row in enumerate(df.values):
     # something to do
+<<<<<<< HEAD
     if IS_ALL_UPDATE or np.isnan(row[map_colmun_and_index['mediapipe_processed_video_file_path']])\
+=======
+    if IS_ALL_DATA or np.isnan(row[map_colmun_and_index['mediapipe_processed_video_file_path']])\
+>>>>>>> 14718d79aa28276c534123b3b16ab3ce3bc3368c
       and np.isnan(row[map_colmun_and_index['mediapipe_result_value_file_path']])\
       and np.isnan(row[map_colmun_and_index['feature_file_ptah']]):
         data_dir_path = row[map_colmun_and_index['data_dir_path']]
