@@ -146,7 +146,7 @@ def output_log(
         f'Distance (Thumb & Index): {calc_distance_to_thumb_and_index_finger(hand_world_landmarks)}\n'
         f'Distance (Thumb & Middle): {calc_distance_to_thumb_and_middle_finger(hand_world_landmarks)}\n'
         f'Distance (Index & Middle): {calc_distance_to_index_and_middle_finger(hand_world_landmarks)}\n'
-        f'Instersect: {is_intersect_to_index_and_middle(hand_world_landmarks)}\n'
+        #f'Instersect: {is_intersect_to_index_and_middle(hand_world_landmarks)}\n'
         f'}}')
 
 def get_explanatory_variables_to_csv(
