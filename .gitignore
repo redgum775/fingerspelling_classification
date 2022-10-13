@@ -163,5 +163,4 @@ cython_debug/
 # Other
 datasets/
 output/
-src/models/*/*.hdf5
-src/models/*/*.tflite
+src/models/*/*.*
