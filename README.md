@@ -17,11 +17,19 @@ RandomForestを使用する分類モデル構築
 - handsign_detaset  
 手の形状を表す真偽値＋各指の角度情報など数値情報を含めたデータセット  
 
+## train_using_ctcloss.ipynb  
+CTC-Lossを利用した指文字分類モデルの訓練  
+
+## Other
+- `training_video_creatin.py` 指文字動画を撮影・保存＆指文字動画ファイルと正解ラベルと対応付けて`datasets\end-to-end\data_list.csv`に保存
+- `build_training_dataset.py` 指文字動画をMediaPipeの処理にかけた結果を保存＆保存先を`datasets\end-to-end\data_list.csv`に記入
+  
 ## Reference  
 - [Mediapipe](https://github.com/google/Mediapipe)  
+- [Keras 2 : examples : コンピュータビジョン – 手書きテキスト (可変長文字列) 認識](https://tensorflow.classcat.com/2021/11/20/keras-2-examples-vision-handwriting-recognition/)
 
-## Author 
+## Author  
 Redgum  
 
 ## License  
-Fingerspelling Classification is under [Apache v2 license](LICENSE).
+Fingerspelling Classification is under [Apache v2 license](LICENSE).  
