@@ -161,8 +161,8 @@ def get_explanatory_variables_to_csv(
   out_csv += f'{str(is_plam_facing(hand_landmarks, handedness))}, '
   out_csv += f'{str(calc_distance_to_thumb_and_index_finger(hand_world_landmarks))}, '
   out_csv += f'{str(calc_distance_to_thumb_and_middle_finger(hand_world_landmarks))}, '
-  out_csv += f'{str(calc_distance_to_index_and_middle_finger(hand_world_landmarks))}, '
-  out_csv += f'{str(is_intersect_to_index_and_middle(hand_world_landmarks))}'
+  out_csv += f'{str(calc_distance_to_index_and_middle_finger(hand_world_landmarks))}'
+  # out_csv += f'{str(is_intersect_to_index_and_middle(hand_world_landmarks))}'
   """
   x, y, z = get_xyz(hand_landmarks, 0)
   out_csv += f',{str(x)}, {str(y)}, {str(z)},'
