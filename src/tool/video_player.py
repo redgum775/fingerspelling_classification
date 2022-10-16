@@ -61,35 +61,37 @@ class VideoPlayer(tk.Frame):
     self.frame_num = 0
     self.frame_length = 0
 
+    self.play_speed = 1.0
     self.play_flg = False
 
-    self.create_main_content()
-    self.create_side_content()
+    self.create_main_content(master)
+    self.create_side_content(master)
 
     self.video_frame_timer()
 
-  def create_main_content(self):
-    self.main_content = tk.Frame(self.master, width=640, height=600, bg='#eeeeee')
-    label = tk.Label(self.main_content, text='VideoPlayer', bg='#afafaf')
+  def create_main_content(self, master=None):
+    main_content = tk.Frame(master, width=640, height=600, bg='#eeeeee')
+    label = tk.Label(main_content, text='VideoPlayer', bg='#afafaf')
     label.pack(fill='x')
-    self.create_video_canvas()
-    self.create_ctrl_panel()
-    self.main_content.pack(side=tk.LEFT, anchor=tk.NW, padx=5, pady=5)
+    self.create_video_canvas(main_content)
+    self.create_ctrl_panel(main_content)
+    main_content.pack(side=tk.LEFT, anchor=tk.NW, padx=5, pady=5)
 
-  def create_video_canvas(self):
-    self.video_canvas = tk.Canvas(self.main_content, width=640, height=480, bg='#000000')
+  def create_video_canvas(self, master=None):
+    self.video_canvas = tk.Canvas(master, width=640, height=480, bg='#000000')
     self.video_canvas.pack(padx=5, pady=5)
   
-  def create_ctrl_panel(self):
-    self.ctrl_panel = tk.Frame(self.main_content, width=640, height=50)
-    self.create_play_button()
-    self.create_seek_bar()
-    self.ctrl_panel.pack(padx=30)
+  def create_ctrl_panel(self, master=None):
+    ctrl_panel = tk.Frame(master, width=640, height=50)
+    self.create_play_button(ctrl_panel)
+    self.create_change_speed_button(ctrl_panel)
+    self.create_seek_bar(ctrl_panel)
+    ctrl_panel.pack(padx=30)
   
-  def create_seek_bar(self):
+  def create_seek_bar(self, master=None):
     self.scale_var = tk.DoubleVar()
     self.seek_bar = tk.Scale(
-      self.ctrl_panel,
+      master,
       variable = self.scale_var,
       command = self.slider_scroll,
       orient = tk.HORIZONTAL,
@@ -110,8 +112,8 @@ class VideoPlayer(tk.Frame):
     self.video.set(cv2.CAP_PROP_POS_FRAMES, pos)
     self.show_img()
   
-  def create_play_button(self):
-    self.play_button = tk.Button(self.ctrl_panel, text="▶", width=2, command=self.state_change)
+  def create_play_button(self, master=None):
+    self.play_button = tk.Button(master, text="▶", width=2, command=self.state_change)
     self.play_button.pack(side=tk.LEFT, padx=5)
   
   def state_change(self):
@@ -124,17 +126,38 @@ class VideoPlayer(tk.Frame):
     else:
       self.play_button.config(text='▶')
   
-  def create_side_content(self):
-    self.side_content = tk.Frame(self.master, width=550, height=600, bg='#eeeeee')
-    self.create_config_panel()
-    self.create_video_clip_panel()
-    self.side_content.pack(side=tk.LEFT, anchor=tk.NW, padx=5, pady=5)
+  def create_change_speed_button(self, master=None):
+    self.change_speed_button = tk.Button(master, text="x1.0", width=2, command=self.click_change_speed)
+    self.change_speed_button.pack(side=tk.LEFT, padx=5)
 
-  def create_config_panel(self):
-    self.config_frame = tk.Frame(self.side_content, bg='#eeeeee')
-    label = tk.Label(self.side_content, text='Config', bg='#afafaf')
+  def click_change_speed(self):
+    if self.play_speed == 1.0:
+      self.play_speed = 1.5
+      self.change_speed_button.config(text='x1.5')
+    elif self.play_speed == 1.5:
+      self.play_speed = 2.0
+      self.change_speed_button.config(text='x2.0')
+    elif self.play_speed == 2.0:
+      self.play_speed = 3.0
+      self.change_speed_button.config(text='x3.0')
+    elif self.play_speed == 3.0:
+      self.play_speed = 5.0
+      self.change_speed_button.config(text='x5.0')
+    elif self.play_speed == 5.0:
+      self.play_speed = 1.0
+      self.change_speed_button.config(text='x1.0')
+
+  def create_side_content(self, master=None):
+    side_content = tk.Frame(master, width=550, height=600, bg='#eeeeee')
+    self.create_config_panel(side_content)
+    self.create_video_clip_panel(side_content)
+    side_content.pack(side=tk.LEFT, anchor=tk.NW, padx=5, pady=5)
+
+  def create_config_panel(self, master=None):
+    config_frame = tk.Frame(master, bg='#eeeeee')
+    label = tk.Label(master, text='Config', bg='#afafaf')
     label.pack(fill='x', padx=5, pady=5)
-    self.path_frame = tk.Frame(self.config_frame, bg='#eeeeee')
+    self.path_frame = tk.Frame(config_frame, bg='#eeeeee')
     label = tk.Label(self.path_frame, text='動画ファイル', bg='#eeeeee')
     label.pack(side=tk.LEFT)
     self.path_entry = tk.Entry(self.path_frame, width=25)
@@ -144,7 +167,7 @@ class VideoPlayer(tk.Frame):
     self.close_button = tk.Button(self.path_frame, text='閉じる', command=self.close_video)
     self.close_button.pack(side=tk.LEFT)
     self.path_frame.pack(side=tk.LEFT, padx=5, pady=5)
-    self.config_frame.pack(side=tk.TOP, fill='x', padx=5, pady=5)
+    config_frame.pack(side=tk.TOP, fill='x', padx=5, pady=5)
   
   def open_filedialog(self):
     file = filedialog.askopenfilename(filetypes = [(['video',['*.mp4', '*.MP4']])])
@@ -160,11 +183,11 @@ class VideoPlayer(tk.Frame):
     self.path_entry.delete(0, tk.END)
     self.seek_bar.config(to=0, tickinterval=0)
   
-  def create_video_clip_panel(self):
-    self.video_catting_panel = tk.Frame(self.side_content, bg='#eeeeee')
-    label = tk.Label(self.video_catting_panel, text='video clipping', bg='#afafaf')
+  def create_video_clip_panel(self, master=None):
+    video_catting_panel = tk.Frame(master, bg='#eeeeee')
+    label = tk.Label(video_catting_panel, text='video clipping', bg='#afafaf')
     label.pack(fill='x')
-    clip_range = tk.Frame(self.video_catting_panel)
+    clip_range = tk.Frame(video_catting_panel)
     label = tk.Label(clip_range, text='from', bg='#eeeeee')
     label.pack(side=tk.LEFT)
     self.clip_from = tk.Entry(clip_range, width=10)
@@ -174,19 +197,22 @@ class VideoPlayer(tk.Frame):
     self.clip_to = tk.Entry(clip_range, width=10)
     self.clip_to.pack(side=tk.LEFT)
     clip_range.pack(side=tk.TOP, fill='x', padx=5, pady=5)
-    set_label = tk.Frame(self.video_catting_panel)
+    set_label = tk.Frame(video_catting_panel)
     label = tk.Label(set_label, text='label', bg='#eeeeee')
     label.pack(side=tk.LEFT)
     self.clip_video_label = tk.Entry(set_label)
     self.clip_video_label.pack(side=tk.LEFT)
     set_label.pack(side=tk.TOP, fill='x', padx=5, pady=5)
-    self.clip_button = tk.Button(self.video_catting_panel, text='clip', command=self.click_clip_button)
+    self.clip_button = tk.Button(video_catting_panel, text='clip', command=self.click_clip_button)
     self.clip_button.pack(side=tk.TOP, fill='x', padx=5, pady=5)
-    self.video_catting_panel.pack(side=tk.TOP, fill='x', padx=5, pady=5)
+    video_catting_panel.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
   def click_clip_button(self):
     clip_video = ClipVideo(self.video)
     clip_video.clip(self.clip_video_label.get(), self.clip_from.get(), self.clip_to.get())
+    self.clip_from.delete(0, tk.END)
+    self.clip_to.delete(0, tk.END)
+    self.clip_video_label.delete(0, tk.END)
 
   def get_video(self, video_source=0):
     if self.video is not None:
@@ -220,12 +246,12 @@ class VideoPlayer(tk.Frame):
   
   def video_frame_timer(self):
     self.next_frame()
-    self.master.after(int(1000/self.fps), self.video_frame_timer)
+    self.master.after(int((1000/self.fps)/self.play_speed), self.video_frame_timer)
 
 if __name__ == '__main__':
   root = tk.Tk()
   root.title('VideoPlayer')
   root.config(bg='#cccccc')
-  root.geometry('1050x600')
+  root.geometry('1080x600')
   video_player = VideoPlayer(master=root)
   root.mainloop()
