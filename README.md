@@ -23,6 +23,7 @@ CTC-Lossを利用した指文字分類モデルの訓練
 ## Other
 - `training_video_creatin.py` 指文字動画を撮影・保存＆指文字動画ファイルと正解ラベルと対応付けて`datasets\end-to-end\data_list.csv`に保存
 - `build_training_dataset.py` 指文字動画をMediaPipeの処理にかけた結果を保存＆保存先を`datasets\end-to-end\data_list.csv`に記入
+- `./tool/video_player.py` 動画から任意の場面だけクリッピング＆正解ラベルと対応付け
   
 ## Reference  
 - [Mediapipe](https://github.com/google/Mediapipe)  
