@@ -7,7 +7,7 @@ import pandas as pd
 from utils import hand_utils
 from utils import drawing_utils
 
-IS_ALL_UPDATE = True
+IS_ALL_UPDATE = False
 
 def main():
   df = pd.read_csv('./datasets/end-to-end/data_list.csv')
@@ -17,9 +17,9 @@ def main():
 
   for index, row in enumerate(df.values):
     # something to do
-    if IS_ALL_UPDATE or np.isnan(row[map_colmun_and_index['mediapipe_processed_video_file_path']])\
-      and np.isnan(row[map_colmun_and_index['mediapipe_result_value_file_path']])\
-      and np.isnan(row[map_colmun_and_index['feature_file_ptah']]):
+    if IS_ALL_UPDATE or pd.isna(row[map_colmun_and_index['mediapipe_processed_video_file_path']])\
+      and pd.isna(row[map_colmun_and_index['mediapipe_result_value_file_path']])\
+      and pd.isna(row[map_colmun_and_index['feature_file_ptah']]):
         data_dir_path = row[map_colmun_and_index['data_dir_path']]
         base_video_file_path = row[map_colmun_and_index['base_video_file_path']]
         mediapipe_processed_video_file_path, mediapipe_result_value_file_path , feature_file_ptah = mediapipe_process(data_dir_path, base_video_file_path)
