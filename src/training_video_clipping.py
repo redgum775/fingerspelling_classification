@@ -222,6 +222,7 @@ class VideoPlayer(tk.Frame):
     self.fps = self.video.get(cv2.CAP_PROP_FPS)
     self.frame = None
     self.frame_num = int(self.video.get(cv2.CAP_PROP_POS_FRAMES))
+    self.scale_var.set(self.frame_num)
     self.frame_length = int(self.video.get(cv2.CAP_PROP_FRAME_COUNT))
     self.seek_bar.config(to=self.frame_length, tickinterval = int(self.frame_length/5))
   
