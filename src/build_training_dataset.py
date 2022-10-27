@@ -58,9 +58,9 @@ def mediapipe_process(data_dir_path, base_video_file_path):
           output_video.release()
           break
         if frame != 1:
-          print(f'\r{frame}/{frame_num}: {data_dir_path}', end="")
+          print(f'\r{int(frame/frame_num*100): >3}%|{"■■"*int((frame/frame_num)*10)+"__"*(10 - int((frame/frame_num)*10))}| {frame}/{frame_num}: {data_dir_path}', end="")
         else:
-          print(f'{frame}/{frame_num}: {data_dir_path}', end="")
+          print(f'{int(frame/frame_num*100): >3}%|{"■■"*int((frame/frame_num)*10)+"__"*(10 - int((frame/frame_num)*10))}| {frame}/{frame_num}: {data_dir_path}', end="")
         # BGR画像をRGB画像に変換し，mediapipeの処理を実行
         results = hands.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         annotated_image = image.copy()
